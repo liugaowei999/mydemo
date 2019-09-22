@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.ly.liugw</groupId>
+    <artifactId>demo</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>controller</module>
+        <module>server</module>
+    </modules>
+
+    <!--<parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.1.8.RELEASE</version>
+        <relativePath/> &lt;!&ndash; lookup parent from repository &ndash;&gt;
+    </parent>-->
+
+
+    <name>demo</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+            <version>1.5.8.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>4.3.16.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <version>1.5.8.RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <version>1.5.8.RELEASE</version>
+        </dependency>
+
+<!--        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>1.5.8.RELEASE</version>
+        </dependency>-->
+
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+&lt;!&ndash;            //<scope>provided</scope>
+            //<scope>compire</scope>&ndash;&gt;
+        </dependency>-->
+
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-rest</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+-->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <scope>runtime</scope>
+            <optional>true</optional>
+        </dependency>-->
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.16.18</version>
+            <scope>provided</scope>
+        </dependency>
+        <!--<dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.projectreactor</groupId>
+            <artifactId>reactor-test</artifactId>
+            <scope>test</scope>
+        </dependency>-->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.5</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+    </dependencies>
+
+    <!--<build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>-->
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>com.ly.liugw.demo.DemoApplication</mainClass>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+
+        <profiles>
+            <profile>
+                <id>dev</id>
+                <properties>
+                    <versionSuffix>SNAPSHOT</versionSuffix>
+                </properties>
+                <build>
+                    <finalName>demo</finalName>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                        </resource>
+                    </resources>
+                </build>
+                <activation>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+            </profile>
+
+            <profile>
+                <id>qa</id>
+                <properties>
+                    <versionSuffix>SNAPSHOT</versionSuffix>
+                </properties>
+                <build>
+                    <finalName>demo</finalName>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources/qa</directory>
+                        </resource>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                        </resource>
+                    </resources>
+                </build>
+                <activation>
+                    <activeByDefault>true</activeByDefault>
+                </activation>
+            </profile>
+
+            <!--<profile>
+                <id>stage</id>
+                <properties>
+                    <versionSuffix>RELEASE</versionSuffix>
+                </properties>
+                <build>
+                    <finalName>com.ly.liugw.demo</finalName>
+                    <resources>
+                        <resource>
+                            <directory>src/main/resources/stage</directory>
+                        </resource>
+                        <resource>
+                            <directory>src/main/resources</directory>
+                        </resource>
+                    </resources>
+                </build>
+                <activation>
+                    <activeByDefault>false</activeByDefault>
+                </activation>
+            </profile>-->
+
+            <!--<profile>-->
+                <!--<id>product</id>-->
+                <!--<properties>-->
+                    <!--<versionSuffix>RELEASE</versionSuffix>-->
+                <!--</properties>-->
+                <!--<build>-->
+                    <!--<finalName>com.ly.liugw.demo</finalName>-->
+                    <!--<resources>-->
+                        <!--<resource>-->
+                            <!--<directory>src/main/resources/product</directory>-->
+                        <!--</resource>-->
+                        <!--<resource>-->
+                            <!--<directory>src/main/resources</directory>-->
+                        <!--</resource>-->
+                    <!--</resources>-->
+                <!--</build>-->
+                <!--<activation>-->
+                    <!--<activeByDefault>false</activeByDefault>-->
+                <!--</activation>-->
+            <!--</profile>-->
+        </profiles>
+
+
+</project>
