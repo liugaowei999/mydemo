@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class DemoController {
     @RequestMapping(value = "/hello", method = RequestMethod.GET)
     public String helloWorld() {
-        return "hello world!";
+//        SmoothWarmingUp
+        return "index";
     }
 }
