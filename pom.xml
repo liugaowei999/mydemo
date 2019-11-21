@@ -10,6 +10,7 @@
     <modules>
         <module>controller</module>
         <module>server</module>
+        <module>demo.test</module>
     </modules>
 
     <!--<parent>
