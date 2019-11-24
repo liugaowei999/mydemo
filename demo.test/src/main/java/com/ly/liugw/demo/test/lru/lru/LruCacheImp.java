@@ -5,11 +5,13 @@ import com.ly.liugw.demo.test.lru.LruCache;
 import com.ly.liugw.demo.test.lru.Storage;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
  * 基于Map和双向链表的 LRU容器
- * https://blog.csdn.net/hopeztm/article/details/79547052
+ * https://blog.csdn.net/hopeztm/article/details/79547052  ---- Redis LRU实现对比
+ *
  * @param <K>
  * @param <V>
  */
