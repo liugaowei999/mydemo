@@ -28,7 +28,7 @@ public class ClientHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message message) throws Exception {
-        log.info("Client 收到消息：{}", message);
+        // log.info("Client 收到消息：{}", message);
         // TimeHelper.start();
         if (z0.equals(message.getMsg())) {
             cnt1++;
