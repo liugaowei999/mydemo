@@ -11,6 +11,7 @@ import java.util.Map;
 /**
  * 基于Map和双向链表的 LRU容器
  * https://blog.csdn.net/hopeztm/article/details/79547052  ---- Redis LRU实现对比
+ * https://www.jianshu.com/p/c4e4d55706ff
  *
  * @param <K>
  * @param <V>
