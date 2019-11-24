@@ -43,7 +43,7 @@ public class ServerHandler extends SimpleChannelInboundHandler<Message> {
 
     @Override
     protected void channelRead0(ChannelHandlerContext ctx, Message message) throws Exception {
-        //log.info("Server 收到消息：{}", message);
+        // log.info("Server 收到消息：{}", message);
         if (l2.equals(message.getMsg())) {
             cnt1++;
 //            log.info("Server 发送消息：{}", z3);
