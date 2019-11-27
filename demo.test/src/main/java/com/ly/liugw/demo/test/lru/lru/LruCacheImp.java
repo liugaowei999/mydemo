@@ -30,23 +30,25 @@ public class LruCacheImp<K,V> extends LruCache<K,V>{
     }
 
     @Override
-    public V get(K key) {
-        LRUNode<K,V> node = map.get(key);
-        if (node != null) {
-            // 将刚被访问的元素设置为head
-            setHead(node);
-            return node.value;
+    public synchronized V get(K key) {
+        synchronized(this) {
+            LRUNode<K, V> node = map.get(key);
+            if (node != null) {
+                // 将刚被访问的元素设置为head
+                setHead(node);
+                return node.value;
+            }
         }
         return null;
     }
 
-    public void set(K key, V value) {
-        LRUNode<K,V> node = map.get(key);
+    public synchronized void set(K key, V value) {
+        LRUNode<K, V> node = map.get(key);
         if (node != null) {
             // 还在LRU容器中， 则调整到头结点
             node.value = value;
         } else {
-            node = new LRUNode<K,V>(key, value);
+            node = new LRUNode<K, V>(key, value);
             if (map.size() >= capacity) {
                 // 新元素添加时， 容量不足时，先删除最久未使用的元素
                 removeTail();
@@ -55,6 +57,22 @@ public class LruCacheImp<K,V> extends LruCache<K,V>{
         }
         // 将刚被访问的元素设置为head
         setHead(node);
+    }
+
+    public void print() {
+        LRUNode curNode = head;
+        while (curNode != null) {
+            System.out.println(curNode.key + "," + curNode.value);
+            curNode = curNode.next;
+        }
+        System.out.println("head ->" + head.key + "," + head.value);
+        System.out.println("tail ->" + tail.key + "," + tail.value);
+        System.out.println("=====================================");
+    }
+
+    @Override
+    public synchronized void remove(K key) {
+        map.remove(key);
     }
 
     private void removeTail() {
@@ -113,69 +131,7 @@ public class LruCacheImp<K,V> extends LruCache<K,V>{
         head.prev = node;
     }
 
-    public void print() {
-        LRUNode curNode = head;
-        while (curNode != null) {
-            System.out.println(curNode.key + "," + curNode.value);
-            curNode = curNode.next;
-        }
-        System.out.println("head ->" + head.key + "," + head.value);
-        System.out.println("tail ->" + tail.key + "," + tail.value);
-        System.out.println("=====================================");
-    }
 
-
-    public static void main(String[] args) {
-        LruCacheImp<String, String> lruCacheImp = new LruCacheImp<String, String>(5, null);
-        lruCacheImp.set("1", "a");
-        lruCacheImp.print();
-        lruCacheImp.set("2", "a");
-        lruCacheImp.print();
-        lruCacheImp.set("3", "a");
-//        lruCacheImp.print();
-//        System.out.println("查询2=" + lruCacheImp.get("2"));
-//        lruCacheImp.print();
-        lruCacheImp.set("3", "b");
-//        lruCacheImp.print();
-        lruCacheImp.set("4", "a");
-        lruCacheImp.set("5", "a");
-//        lruCacheImp.print();
-        lruCacheImp.set("6", "a");
-        lruCacheImp.print();
-        System.out.println("查询1=" + lruCacheImp.get("1"));
-        lruCacheImp.print();
-        System.out.println("查询2=" + lruCacheImp.get("2"));
-        lruCacheImp.print();
-        lruCacheImp.set("7", "a");
-        lruCacheImp.print();
-
-        System.out.println("查询6=" + lruCacheImp.get("6"));
-        lruCacheImp.print();
-
-        TimeHelper.start();
-        for (int i=1; i<1000000; i++) {
-            lruCacheImp.set("" + i, "a");
-//            if (i % 100000 == 0) {
-//                try {
-//                    lruCacheImp.print();
-//                    //System.gc();
-//                    //Thread.sleep(2000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-        }
-        lruCacheImp.print();
-        TimeHelper.end();
-
-        while (true) {
-            try {
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
 }
 

@@ -16,4 +16,10 @@ public abstract class LruCache<K,V> implements Storage<K,V>{
         this.storage = storage;
     }
 
+    public abstract void set(K key, V value);
+
+    public abstract void print();
+
+    public abstract void remove(K key);
+
 }

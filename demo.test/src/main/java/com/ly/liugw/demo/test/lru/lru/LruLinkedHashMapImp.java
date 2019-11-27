@@ -22,6 +22,21 @@ public class LruLinkedHashMapImp<K,V> extends LruCache<K,V> {
     }
 
     @Override
+    public void set(K key, V value) {
+
+    }
+
+    @Override
+    public void print() {
+
+    }
+
+    @Override
+    public void remove(K key) {
+
+    }
+
+    @Override
     public V get(K key) {
         //先从高速缓存中获取
         V value = map.get(key);
