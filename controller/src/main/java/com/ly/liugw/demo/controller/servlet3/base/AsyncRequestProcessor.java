@@ -25,7 +25,8 @@ public class AsyncRequestProcessor implements Runnable {
 
         try (PrintWriter out = asyncContext.getResponse().getWriter()) {
 
-            out.write(new String("process finish: ") + processTime + "ms.");
+            out.println(new String("process finish: ") + processTime + "ms.");
+            out.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

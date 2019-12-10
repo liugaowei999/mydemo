@@ -21,7 +21,8 @@ public class AsyncServletTest extends HttpServlet {
         long startTime = System.currentTimeMillis();
         System.out.println("Async Servlet start! ThreadName=" + Thread.currentThread().getName() + ", ThreadId=" + Thread.currentThread().getId());
 
-        resp.setContentType("test/html;charset=UTF-8");
+        req.setCharacterEncoding("UTF-8");
+        resp.setContentType("text/html;charset=UTF-8");
 
         req.setAttribute("org.apache.catalina.ASYNC_SPPORTED", true);
 
@@ -29,8 +30,8 @@ public class AsyncServletTest extends HttpServlet {
         String time = req.getParameter("time");
         int processTime = Integer.valueOf(time);
 
-        if (processTime > 5000) {
-            processTime = 5000;
+        if (processTime > 15000) {
+            processTime = 15000;
         }
 
         AsyncContext asyncContext = req.startAsync();
@@ -51,7 +52,7 @@ public class AsyncServletTest extends HttpServlet {
         resp.setBufferSize(10);
         PrintWriter out = resp.getWriter();
 
-        out.write("====== Async Servlet end! ThreadName=" + Thread.currentThread().getName() + ", ThreadId=" + Thread.currentThread().getId() + ", Time cost=" + (endTime-startTime) + "ms." + "\n");
+        out.println("<h1>====== Async Servlet end! ThreadName=" + Thread.currentThread().getName() + ", ThreadId=" + Thread.currentThread().getId() + ", Time cost=" + (endTime-startTime) + "ms." + "\n<h1>");
         out.flush();
 
 
@@ -60,7 +61,7 @@ public class AsyncServletTest extends HttpServlet {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        out.write("xxxxxxxxxxxxxxxxxxxxxxxxxx\n");
+        out.println("<h2>xxxxxxxxxxxxxxxxxxxxxxxxxx\n<h2>");
         out.flush();
 
     }
